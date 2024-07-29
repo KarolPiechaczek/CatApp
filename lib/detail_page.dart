@@ -41,9 +41,9 @@ class DetailsPageState extends State<DetailsPage> {
                 child: CircularProgressIndicator(),
               )
             : switch (result) {
-                Success() => displayInfo(result as Success),
-                Failure() => Center(
-                    child: Text((result as Failure).errorMessage),
+                Success success => displayInfo(success),
+                Failure failure => Center(
+                    child: Text(failure.errorMessage),
                   ),
               });
   }
