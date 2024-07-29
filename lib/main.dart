@@ -1,6 +1,8 @@
+import 'package:first_flutter_app/cats_list_page/cats_list_page_bloc.dart';
 import 'package:first_flutter_app/injection_container.dart';
-import 'package:first_flutter_app/my_home_page.dart';
+import 'package:first_flutter_app/cats_list_page/cats_list_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   setup();
@@ -12,14 +14,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 167, 220, 245)),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) => CatsListPageBloc(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 167, 220, 245)),
+          useMaterial3: true,
+        ),
+        home: const CatsListPage(title: 'Cat App'),
       ),
-      home: const MyHomePage(title: 'Cat App'),
     );
   }
 }
-
