@@ -1,7 +1,8 @@
 import 'package:first_flutter_app/api_result.dart';
+import 'package:first_flutter_app/cat_service.dart';
 import 'package:first_flutter_app/get_my_row.dart';
+import 'package:first_flutter_app/injection_container.dart';
 import 'package:flutter/material.dart';
-import 'cat_api_ask.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late ApiResult result;
 
   assignData() async {
-    result = await getCats();
+    result = await locator<CatService>().getCats();
     setState(() {
       isDataLoded = true;
     });

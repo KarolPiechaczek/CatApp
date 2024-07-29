@@ -1,6 +1,7 @@
 
 import 'package:first_flutter_app/api_result.dart';
-import 'package:first_flutter_app/breed_api_ask.dart';
+import 'package:first_flutter_app/cat_service.dart';
+import 'package:first_flutter_app/injection_container.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class DetailsPageState extends State<DetailsPage> {
   late ApiResult result;
 
   assignData() async {
-    result = await getCatDetails(widget.catId);
+    result = await locator<CatService>().getCatDetails(widget.catId);
     setState(() {
       isCatLoaded = true;
     });

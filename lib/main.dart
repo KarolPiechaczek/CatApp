@@ -1,7 +1,9 @@
+import 'package:first_flutter_app/injection_container.dart';
 import 'package:first_flutter_app/my_home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setup();
   runApp(const MyApp());
 }
 
