@@ -1,4 +1,5 @@
 import 'package:first_flutter_app/cats_list_page/cats_list_page_bloc.dart';
+import 'package:first_flutter_app/detail_page/detail_page_bloc.dart';
 import 'package:first_flutter_app/injection_container.dart';
 import 'package:first_flutter_app/cats_list_page/cats_list_page.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +16,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CatsListPageBloc(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 167, 220, 245)),
-          useMaterial3: true,
+      create: (context) => DetailPageBloc(),
+      child: BlocProvider(
+        create: (context) => CatsListPageBloc(),
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: const Color.fromARGB(255, 167, 220, 245)),
+            useMaterial3: true,
+          ),
+          home: const CatsListPage(title: 'Cat App'),
         ),
-        home: const CatsListPage(title: 'Cat App'),
       ),
     );
   }

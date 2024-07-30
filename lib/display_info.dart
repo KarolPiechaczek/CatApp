@@ -1,54 +1,7 @@
-
 import 'package:first_flutter_app/api_result.dart';
-import 'package:first_flutter_app/cat_service.dart';
-import 'package:first_flutter_app/injection_container.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key, required this.catId});
-  final String catId;
-
-  @override
-  DetailsPageState createState() => DetailsPageState();
-}
-
-class DetailsPageState extends State<DetailsPage> {
-  bool isCatLoaded = false;
-  late ApiResult result;
-
-  assignData() async {
-    result = await locator<CatService>().getCatDetails(widget.catId);
-    setState(() {
-      isCatLoaded = true;
-    });
-  }
-
-  @override
-  void initState() {
-    assignData();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Details'),
-        ),
-        body: !isCatLoaded
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : switch (result) {
-                Success success => displayInfo(success),
-                Failure failure => Center(
-                    child: Text(failure.errorMessage),
-                  ),
-              });
-  }
-
-  Widget displayInfo(Success success) {
+Widget displayInfo(Success success) {
     var positiveResult = success.result;
 
     return Scaffold(
@@ -105,4 +58,3 @@ class DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-}
