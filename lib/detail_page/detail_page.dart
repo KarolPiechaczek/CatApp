@@ -2,7 +2,7 @@ import 'package:first_flutter_app/api_result.dart';
 import 'package:first_flutter_app/detail_page/detail_page_bloc.dart';
 import 'package:first_flutter_app/detail_page/detail_page_event.dart';
 import 'package:first_flutter_app/detail_page/detail_page_state.dart';
-import 'package:first_flutter_app/display_info.dart';
+import 'package:first_flutter_app/detail_page/display_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

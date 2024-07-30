@@ -1,9 +1,9 @@
 
 class Breed {
-    final String id;//
-    final String name;//
-    final String temperament;//
-    final String description;//
+    final String id;
+    final String name;
+    final String temperament;
+    final String description;
 
     Breed({
         required this.id,

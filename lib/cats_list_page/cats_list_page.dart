@@ -3,7 +3,7 @@ import 'package:first_flutter_app/cats_list_page/cats_list_page_event.dart';
 import 'package:first_flutter_app/cats_list_page/cats_list_page_state.dart';
 import 'package:flutter/material.dart';
 import 'package:first_flutter_app/api_result.dart';
-import 'package:first_flutter_app/get_my_row.dart';
+import 'package:first_flutter_app/cats_list_page/get_my_row.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CatsListPage extends StatefulWidget {
