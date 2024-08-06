@@ -2,7 +2,7 @@ sealed class StartPageStates{}
 
 class InitialState extends StartPageStates{}
 
-class UpdateState extends StartPageStates{
+class ButtonPressedState extends StartPageStates{
   final bool isSignInButtonPressed;
-  UpdateState(this.isSignInButtonPressed);
+  ButtonPressedState(this.isSignInButtonPressed);
 }

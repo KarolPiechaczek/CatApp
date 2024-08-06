@@ -4,7 +4,9 @@ sealed class CatsListPageStates{}
 
 class InitialState extends CatsListPageStates{}
 
-class UpdateState extends CatsListPageStates{
+class DisplayDataState extends CatsListPageStates{
   final ApiResult result;
-  UpdateState(this.result);
+  DisplayDataState(this.result);
 }
+
+class NavigateToStartPageState extends CatsListPageStates{}

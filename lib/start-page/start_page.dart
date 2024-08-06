@@ -12,12 +12,12 @@ class StartPage extends StatefulWidget {
   StartPageState createState() => StartPageState();
 }
 
-void popCatsListPage(BuildContext context) {
+void navigateToCatsListPage(BuildContext context) {
   Navigator.push(
     context,
     MaterialPageRoute(
         builder: (context) => const CatsListPage(
-              title: 'CatApp',
+              title: 'AppCat',
             )),
   );
 }
@@ -39,7 +39,7 @@ class StartPageState extends State<StartPage> {
             child: CircularProgressIndicator(),
           );
 
-        case UpdateState():
+        case ButtonPressedState():
           return Center(
             child: ElevatedButton(
               style: ButtonStyle(
@@ -47,7 +47,8 @@ class StartPageState extends State<StartPage> {
                 backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
-                popCatsListPage(context);
+                context.read<StartPageBloc>().add(SignedInEvent());
+                navigateToCatsListPage(context);
               },
               child: const Text('Sign in'),
             ),
