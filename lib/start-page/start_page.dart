@@ -35,25 +35,33 @@ class StartPageState extends State<StartPage> {
         BlocBuilder<StartPageBloc, StartPageStates>(builder: (context, state) {
       switch (state) {
         case InitialState():
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return initialCase();
 
         case ButtonPressedState():
-          return Center(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
-              ),
-              onPressed: () {
-                context.read<StartPageBloc>().add(SignedInEvent());
-                navigateToCatsListPage(context);
-              },
-              child: const Text('Sign in'),
-            ),
-          );
+          return buttonPressedCase();
       }
     }));
+  }
+
+  Widget initialCase() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget buttonPressedCase() {
+    return Center(
+      child: ElevatedButton(
+        style: ButtonStyle(
+          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+          backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
+        ),
+        onPressed: () {
+          context.read<StartPageBloc>().add(SignedInEvent());
+          navigateToCatsListPage(context);
+        },
+        child: const Text('Sign in'),
+      ),
+    );
   }
 }

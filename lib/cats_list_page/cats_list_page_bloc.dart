@@ -17,10 +17,8 @@ class CatsListPageBloc extends Bloc<CatsListPageEvent, CatsListPageStates>{
     if(isSignedIn) {
       ApiResult result = await locator<CatService>().getCats();
        emit(DisplayDataState(result));
-    }else{
+    } else{
      emit(NavigateToStartPageState());
     }
-    
-   
   }
 }

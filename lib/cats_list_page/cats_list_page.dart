@@ -17,7 +17,6 @@ class CatsListPage extends StatefulWidget {
 }
 
 class _CatsListPageState extends State<CatsListPage> {
-
   @override
   void initState() {
     context.read<CatsListPageBloc>().add(FetchCatsEvent());
@@ -33,35 +32,47 @@ class _CatsListPageState extends State<CatsListPage> {
           title: Center(child: Text(widget.title)),
         ),
         body: BlocBuilder<CatsListPageBloc, CatsListPageStates>(
-                builder: (context, state) {
-                  switch (state) {
-                    
-                    case InitialState():
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+          builder: (context, state) {
+            switch (state) {
+              case InitialState():
+                return initialCase();
 
-                    case DisplayDataState():
-                      return switch (state.result) {
-                        Success() => ListView.builder(
-                            itemCount: (state.result as Success).result.length,
-                            itemBuilder: (
-                              context,
-                              index,
-                            ) =>
-                                getMyRow(
-                                    index, (state.result as Success), context),
-                          ),
-                        Failure() => Center(
-                            child: Text((state.result as Failure).errorMessage),
-                          ),
-                      };
+              case DisplayDataState():
+                return displayDataCase(state.result);
 
-                    case NavigateToStartPageState():
-                      return const StartPage();
-                  }
-                },
-              )
+              case NavigateToStartPageState():
+                return navigateToStartPageCase();
+            }
+          },
+        ));
+  }
+
+  Widget initialCase() {
+    return const Center(
+      child: CircularProgressIndicator(),
     );
+  }
+
+  Widget displayDataCase(ApiResult result) {
+    return switch (result) {
+       Success() =>
+        ListView.builder(
+          itemCount: (result).result.length,
+          itemBuilder: (
+            context,
+            index,
+          ) =>
+              getMyRow(index, result, context),
+        ),
+
+       Failure() =>
+        Center(
+          child: Text((result).errorMessage),
+        )
+    };
+  } 
+
+  Widget navigateToStartPageCase() {
+    return const StartPage();
   }
 }

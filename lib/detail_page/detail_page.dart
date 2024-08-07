@@ -20,8 +20,8 @@ class DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState() {
-    context.read<DetailPageBloc>().add(FetchCatDetailsEvent(widget.catId));
     super.initState();
+    context.read<DetailPageBloc>().add(FetchCatDetailsEvent(widget.catId));
   }
 
   @override
@@ -35,21 +35,27 @@ class DetailsPageState extends State<DetailsPage> {
         builder: (context, state) {
           switch (state) {
             case InitialState():
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return initialCase();
             case UpdateState():
-              return switch (state.result) {
-                Success success => displayInfo(success),
-                Failure failure => Center(
-                    child: Text(failure.errorMessage),
-                  )
-              };
-            default:
-              return const Center();
+              return updateCase(state.result);
           }
         },
       ),
     );
+  }
+
+  Widget initialCase() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget updateCase(ApiResult result) {
+    return switch (result) {
+      Success success => displayInfo(success),
+      Failure failure => Center(
+          child: Text(failure.errorMessage),
+        )
+    };
   }
 }

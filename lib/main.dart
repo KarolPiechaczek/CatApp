@@ -23,14 +23,14 @@ class MyApp extends StatelessWidget {
           child: BlocProvider(
             create: (context) => StartPageBloc(),
             child: MaterialApp(
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(
-                      seedColor: const Color.fromARGB(255, 167, 220, 245)),
-                  useMaterial3: true,
-                ),
-                home: const CatsListPage(title: 'AppCat'), 
-                ),
+              title: 'AppCat',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                    seedColor: const Color.fromARGB(255, 167, 220, 245)),
+                useMaterial3: true,
+              ),
+              home: const CatsListPage(title: 'AppCat'),
+            ),
           )),
     );
   }

@@ -1,4 +1,3 @@
-
 import 'package:first_flutter_app/api_result.dart';
 import 'package:first_flutter_app/detail_page/detail_page.dart';
 import 'package:flutter/material.dart';
