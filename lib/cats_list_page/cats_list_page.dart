@@ -19,8 +19,12 @@ class CatsListPage extends StatefulWidget {
 class _CatsListPageState extends State<CatsListPage> {
   @override
   void initState() {
+    context.read<CatsListPageBloc>().add(ResetStateEvent());
     context.read<CatsListPageBloc>().add(FetchCatsEvent());
     super.initState();
+    setState(() {
+      ResetState();
+    });
   }
 
   @override
@@ -42,6 +46,8 @@ class _CatsListPageState extends State<CatsListPage> {
 
               case NavigateToStartPageState():
                 return navigateToStartPageCase();
+              case ResetState():
+                return resetCase();
             }
           },
         ));
@@ -55,8 +61,7 @@ class _CatsListPageState extends State<CatsListPage> {
 
   Widget displayDataCase(ApiResult result) {
     return switch (result) {
-       Success() =>
-        ListView.builder(
+      Success() => ListView.builder(
           itemCount: (result).result.length,
           itemBuilder: (
             context,
@@ -64,15 +69,17 @@ class _CatsListPageState extends State<CatsListPage> {
           ) =>
               getMyRow(index, result, context),
         ),
-
-       Failure() =>
-        Center(
+      Failure() => Center(
           child: Text((result).errorMessage),
         )
     };
-  } 
+  }
 
   Widget navigateToStartPageCase() {
     return const StartPage();
+  }
+
+  Widget resetCase() {
+    return const Center();
   }
 }

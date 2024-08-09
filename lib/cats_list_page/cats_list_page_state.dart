@@ -10,3 +10,5 @@ class DisplayDataState extends CatsListPageStates{
 }
 
 class NavigateToStartPageState extends CatsListPageStates{}
+
+class ResetState extends CatsListPageStates{}

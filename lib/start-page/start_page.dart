@@ -25,7 +25,7 @@ void navigateToCatsListPage(BuildContext context) {
 class StartPageState extends State<StartPage> {
   @override
   void initState() {
-    context.read<StartPageBloc>().add(SignedInEvent());
+    context.read<StartPageBloc>().add(CheckIfPressedEvent());
     super.initState();
   }
 
@@ -57,8 +57,8 @@ class StartPageState extends State<StartPage> {
           backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
         ),
         onPressed: () {
-          context.read<StartPageBloc>().add(SignedInEvent());
           navigateToCatsListPage(context);
+          context.read<StartPageBloc>().add(SignedInEvent());
         },
         child: const Text('Sign in'),
       ),

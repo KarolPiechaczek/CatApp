@@ -8,3 +8,5 @@ class UpdateState extends DetailStates{
   final ApiResult result;
   UpdateState(this.result);
 }
+
+class ResetState extends DetailStates{}

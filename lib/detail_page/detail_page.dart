@@ -6,26 +6,15 @@ import 'package:first_flutter_app/detail_page/display_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key, required this.catId});
 
   final String catId;
 
   @override
-  DetailsPageState createState() => DetailsPageState();
-}
-
-class DetailsPageState extends State<DetailsPage> {
-  late ApiResult result;
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<DetailPageBloc>().add(FetchCatDetailsEvent(widget.catId));
-  }
-
-  @override
   Widget build(BuildContext context) {
+    context.read<DetailPageBloc>().add(ResetStateEvent());
+    context.read<DetailPageBloc>().add(FetchCatDetailsEvent(catId));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -38,6 +27,8 @@ class DetailsPageState extends State<DetailsPage> {
               return initialCase();
             case UpdateState():
               return updateCase(state.result);
+            case ResetState():
+              return resetCase();
           }
         },
       ),
@@ -57,5 +48,9 @@ class DetailsPageState extends State<DetailsPage> {
           child: Text(failure.errorMessage),
         )
     };
+  }
+
+  Widget resetCase() {
+    return const Center();
   }
 }
