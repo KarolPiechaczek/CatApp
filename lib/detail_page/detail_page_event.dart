@@ -1,13 +1,13 @@
 sealed class DetailPageEvent {}
 
-class FetchCatDetailsEvent extends DetailPageEvent {
+class FetchCatDetails extends DetailPageEvent {
   String catId;
 
-  FetchCatDetailsEvent(this.catId);
+  FetchCatDetails(this.catId);
 
   String getCatId() {
     return catId;
   }
 }
 
-class ResetStateEvent extends DetailPageEvent{}
+class OnInit extends DetailPageEvent{}

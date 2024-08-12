@@ -1,5 +1,5 @@
 sealed class CatsListPageEvent{}
 
-class FetchCatsEvent extends CatsListPageEvent{}
+class FetchCats extends CatsListPageEvent{}
 
-class ResetStateEvent extends CatsListPageEvent{}
+class OnInit extends CatsListPageEvent{}

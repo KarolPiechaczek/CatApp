@@ -13,8 +13,7 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DetailPageBloc>().add(ResetStateEvent());
-    context.read<DetailPageBloc>().add(FetchCatDetailsEvent(catId));
+    context.read<DetailPageBloc>().add(OnInit());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -23,12 +22,11 @@ class DetailsPage extends StatelessWidget {
       body: BlocBuilder<DetailPageBloc, DetailStates>(
         builder: (context, state) {
           switch (state) {
-            case InitialState():
+            case Loading():
+              context.read<DetailPageBloc>().add(FetchCatDetails(catId));
               return initialCase();
-            case UpdateState():
+            case CatDetails():
               return updateCase(state.result);
-            case ResetState():
-              return resetCase();
           }
         },
       ),
@@ -48,9 +46,5 @@ class DetailsPage extends StatelessWidget {
           child: Text(failure.errorMessage),
         )
     };
-  }
-
-  Widget resetCase() {
-    return const Center();
   }
 }

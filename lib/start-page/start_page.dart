@@ -5,62 +5,81 @@ import 'package:first_flutter_app/start-page/start_page_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StartPage extends StatefulWidget {
+class StartPage extends StatelessWidget {
   const StartPage({super.key});
 
   @override
-  StartPageState createState() => StartPageState();
-}
-
-void navigateToCatsListPage(BuildContext context) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-        builder: (context) => const CatsListPage(
-              title: 'AppCat',
-            )),
-  );
-}
-
-class StartPageState extends State<StartPage> {
-  @override
-  void initState() {
-    context.read<StartPageBloc>().add(CheckIfPressedEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-        BlocBuilder<StartPageBloc, StartPageStates>(builder: (context, state) {
-      switch (state) {
-        case InitialState():
-          return initialCase();
-
-        case ButtonPressedState():
-          return buttonPressedCase();
-      }
-    }));
-  }
-
-  Widget initialCase() {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
-  Widget buttonPressedCase() {
-    return Center(
-      child: ElevatedButton(
-        style: ButtonStyle(
-          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-          backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
+    Widget view() {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 102, 198, 242)),
+              ),
+              onPressed: () {
+                context.read<StartPageBloc>().add(LogIn());
+              },
+              child: const Text('Log in'),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 102, 198, 242)),
+              ),
+              child: const Text('Info'),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                    title: Center(child: Text('APPCAT')),
+                    content: Text(
+                        'At AppCat you can not only look at pretty pictures of cats, but also learn interesting facts about them!'),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
-        onPressed: () {
-          navigateToCatsListPage(context);
-          context.read<StartPageBloc>().add(SignedInEvent());
+      );
+    }
+
+    void navigateToCatsListPage() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CatsListPage(
+            title: 'AppCat',
+          ),
+        ),
+      );
+    }
+
+    void loadingCase() {
+      const CircularProgressIndicator();
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Center(child: Text('AppCat')),
+        ),
+      body: BlocListener<StartPageBloc, StartPageStates>(
+        listener: (context, state) {
+          switch (state) {
+            case Loading():
+              loadingCase();
+            case NavigationToCatsListPage():
+              navigateToCatsListPage();
+          }
         },
-        child: const Text('Sign in'),
+        child: view(),
       ),
     );
   }

@@ -2,11 +2,9 @@ import 'package:first_flutter_app/api_result.dart';
 
 sealed class DetailStates{}
 
-class InitialState extends DetailStates{}
+class Loading extends DetailStates{}
 
-class UpdateState extends DetailStates{
+class CatDetails extends DetailStates{
   final ApiResult result;
-  UpdateState(this.result);
+  CatDetails(this.result);
 }
-
-class ResetState extends DetailStates{}

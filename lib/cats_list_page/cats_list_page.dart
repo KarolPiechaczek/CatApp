@@ -19,55 +19,49 @@ class CatsListPage extends StatefulWidget {
 class _CatsListPageState extends State<CatsListPage> {
   @override
   void initState() {
-    context.read<CatsListPageBloc>().add(ResetStateEvent());
-    context.read<CatsListPageBloc>().add(FetchCatsEvent());
+    context.read<CatsListPageBloc>().add(OnInit());
     super.initState();
-    setState(() {
-      ResetState();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Center(child: Text(widget.title)),
-        ),
-        body: BlocBuilder<CatsListPageBloc, CatsListPageStates>(
-          builder: (context, state) {
-            switch (state) {
-              case InitialState():
-                return initialCase();
-
-              case DisplayDataState():
-                return displayDataCase(state.result);
-
-              case NavigateToStartPageState():
-                return navigateToStartPageCase();
-              case ResetState():
-                return resetCase();
-            }
-          },
-        ));
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Center(child: Text(widget.title)),
+      ),
+      body: BlocConsumer<CatsListPageBloc, CatsListPageStates>(
+        builder: (context, state) {
+          if (state is Loading) {
+            context.read<CatsListPageBloc>().add(FetchCats());
+            return loadingCase();
+          }
+          if (state is DisplayCatsList) {
+            return displayCatsListCase(state.result);
+          }
+          return const CircularProgressIndicator();
+        },
+        listener: (context, state) {
+          if (state is NavigationToStartPage) {
+            navigationToStartPageCase();
+          }
+        },
+      ),
+    );
   }
 
-  Widget initialCase() {
+  Widget loadingCase() {
     return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  Widget displayDataCase(ApiResult result) {
+  Widget displayCatsListCase(ApiResult result) {
     return switch (result) {
       Success() => ListView.builder(
           itemCount: (result).result.length,
-          itemBuilder: (
-            context,
-            index,
-          ) =>
-              getMyRow(index, result, context),
+          itemBuilder: (context, index) => getMyRow(index, result, context),
         ),
       Failure() => Center(
           child: Text((result).errorMessage),
@@ -75,11 +69,12 @@ class _CatsListPageState extends State<CatsListPage> {
     };
   }
 
-  Widget navigateToStartPageCase() {
-    return const StartPage();
-  }
-
-  Widget resetCase() {
-    return const Center();
+  void navigationToStartPageCase() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const StartPage(),
+        ),
+      );
   }
 }
