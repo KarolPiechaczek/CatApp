@@ -7,15 +7,12 @@ import 'package:first_flutter_app/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-class CatsListPageBloc extends Bloc<CatsListPageEvent, CatsListPageStates> {
+class CatsListPageBloc extends Bloc<CatsListPageEvent, CatsListPageState> {
   CatsListPageBloc() : super(Loading()) {
-    on<FetchCats>(onFetchCats);
     on<OnInit>(onInitState);
   }
 
-  void onFetchCats(FetchCats event, Emitter<CatsListPageStates> emit) async {}
-
-  void onInitState(OnInit event, Emitter<CatsListPageStates> emit) async{
+  void onInitState(OnInit event, Emitter<CatsListPageState> emit) async{
     emit(Loading());
 
     bool isSignedIn = await GetIt.instance<Helper>().getIfPressedState();

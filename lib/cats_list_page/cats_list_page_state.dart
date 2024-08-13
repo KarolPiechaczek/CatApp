@@ -1,12 +1,12 @@
 import 'package:first_flutter_app/api_result.dart';
 
-sealed class CatsListPageStates{}
+sealed class CatsListPageState{}
 
-class Loading extends CatsListPageStates{}
+class Loading extends CatsListPageState{}
 
-class DisplayCatsList extends CatsListPageStates{
+class DisplayCatsList extends CatsListPageState{
   final ApiResult result;
   DisplayCatsList(this.result);
 }
 
-class NavigationToStartPage extends CatsListPageStates{}
+class NavigationToStartPage extends CatsListPageState{}

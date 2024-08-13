@@ -31,10 +31,9 @@ class _CatsListPageState extends State<CatsListPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Center(child: Text(widget.title)),
       ),
-      body: BlocConsumer<CatsListPageBloc, CatsListPageStates>(
+      body: BlocConsumer<CatsListPageBloc, CatsListPageState>(
         builder: (context, state) {
           if (state is Loading) {
-            context.read<CatsListPageBloc>().add(FetchCats());
             return loadingCase();
           }
           if (state is DisplayCatsList) {
@@ -42,10 +41,9 @@ class _CatsListPageState extends State<CatsListPage> {
           }
           return const CircularProgressIndicator();
         },
+        listenWhen: (previous, current) => current is NavigationToStartPage,
         listener: (context, state) {
-          if (state is NavigationToStartPage) {
             navigationToStartPageCase();
-          }
         },
       ),
     );

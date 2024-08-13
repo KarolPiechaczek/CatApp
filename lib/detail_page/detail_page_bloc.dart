@@ -7,16 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailPageBloc extends Bloc<DetailPageEvent, DetailStates> {
   DetailPageBloc() : super(Loading()) {
-    on<FetchCatDetails>(onFetchCatDetails);
     on<OnInit>(onInitState);
   }
 
-  void onFetchCatDetails(FetchCatDetails event, Emitter<DetailStates> emit) async {
+  void onInitState(OnInit event, Emitter<DetailStates> emit) async {
+    emit(Loading());
     ApiResult result = await locator<CatService>().getCatDetails(event.catId);
     emit(CatDetails(result));
-  }
-
-  void onInitState(OnInit event, Emitter<DetailStates> emit) {
-    emit(Loading());
   }
 }

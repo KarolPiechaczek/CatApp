@@ -13,7 +13,7 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DetailPageBloc>().add(OnInit());
+    context.read<DetailPageBloc>().add(OnInit(catId));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -23,7 +23,6 @@ class DetailsPage extends StatelessWidget {
         builder: (context, state) {
           switch (state) {
             case Loading():
-              context.read<DetailPageBloc>().add(FetchCatDetails(catId));
               return initialCase();
             case CatDetails():
               return updateCase(state.result);
