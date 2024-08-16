@@ -1,5 +1,4 @@
 import 'package:first_flutter_app/cats_list_page/cats_list_page.dart';
-import 'package:first_flutter_app/components/button.dart';
 import 'package:first_flutter_app/start-page/start_page_bloc.dart';
 import 'package:first_flutter_app/start-page/start_page_event.dart';
 import 'package:first_flutter_app/start-page/start_page_state.dart';
@@ -11,7 +10,7 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic showDialogStyle() {
+    void showDialogStyle() {
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
@@ -23,34 +22,34 @@ class StartPage extends StatelessWidget {
     }
 
     Widget view() {
-      Button loginButton = Button(function: showDialogStyle(), text: 'Log in'); //context.read<StartPageBloc>().add(LogIn())
-      Button infoButton = Button(function: showDialogStyle(), text: 'Info');
+      //Button loginButton = Button(function: showDialogStyle(), text: 'Log in'); //context.read<StartPageBloc>().add(LogIn())
+      //Button infoButton = Button(function: showDialogStyle(), text: 'Info');
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             ElevatedButton(
               style: ButtonStyle(
-                foregroundColor: loginButton.foregroundColor,
-                backgroundColor: loginButton.backgroundColor,
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 102, 198, 242)),
               ),
               onPressed: () {
                 context.read<StartPageBloc>().add(LogIn());
               },
               child: const Text('Log in'),
             ),
-
             ElevatedButton(
               style: ButtonStyle(
-                foregroundColor: infoButton.foregroundColor,
-                backgroundColor: infoButton.backgroundColor
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 102, 198, 242)),
               ),
+              child: const Text('Info'),
               onPressed: () {
                 showDialogStyle();
               },
-              child: const Text('Info'),
-            ),
+            )
           ],
         ),
       );

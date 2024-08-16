@@ -2,6 +2,7 @@ import 'package:first_flutter_app/cats_list_page/cats_list_page.dart';
 import 'package:first_flutter_app/cats_list_page/cats_list_page_bloc.dart';
 import 'package:first_flutter_app/detail_page/detail_page_bloc.dart';
 import 'package:first_flutter_app/injection_container.dart';
+import 'package:first_flutter_app/shared_preferences.dart';
 import 'package:first_flutter_app/start-page/start_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,13 +17,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DetailPageBloc(),
-      child: BlocProvider(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => StartPageBloc(),
+        ),
+        BlocProvider(
           create: (context) => CatsListPageBloc(),
-          child: BlocProvider(
-            create: (context) => StartPageBloc(),
-            child: MaterialApp(
+        ),
+        BlocProvider(
+          create: (context) => DetailPageBloc(),
+        ),
+      ],
+      child: MaterialApp(
               title: 'AppCat',
               theme: ThemeData(
                 colorScheme: ColorScheme.fromSeed(
@@ -31,7 +38,6 @@ class MyApp extends StatelessWidget {
               ),
               home: const CatsListPage(title: 'AppCat'),
             ),
-          )),
     );
   }
 }

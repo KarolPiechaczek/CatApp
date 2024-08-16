@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart';
 class CatsListPageBloc extends Bloc<CatsListPageEvent, CatsListPageState> {
   CatsListPageBloc() : super(Loading()) {
     on<OnInit>(onInitState);
+    on<LogOut>(onLogOut);
   }
 
   void onInitState(OnInit event, Emitter<CatsListPageState> emit) async{
@@ -22,5 +23,11 @@ class CatsListPageBloc extends Bloc<CatsListPageEvent, CatsListPageState> {
     } else {
       emit(NavigationToStartPage());
     }
+  }
+
+  void onLogOut(LogOut event, Emitter<CatsListPageState> emit){
+    emit(Loading());
+    GetIt.instance<Helper>().saveIfPressedState(false);
+    emit(NavigationToStartPage());
   }
 }
