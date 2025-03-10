@@ -1,4 +1,4 @@
-# first_flutter_app
+# AppCat
 
 A new Flutter project.
 
