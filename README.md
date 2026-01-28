@@ -45,18 +45,18 @@ Projekt jest przykładem implementacji nowoczesnej aplikacji z wykorzystaniem as
 
 This project serves as an example of a modern implementation using asynchronous network requests, JSON serialization, and state management within the Flutter ecosystem.
 
-### ✨ Key Features
+### Key Features
 * **Random Cat:** Fetching and displaying a random cat image.
 * **Breeds Catalog:** A list of cat breeds with details (description, temperament, origin).
 * **UI/UX:** Clean and responsive interface following Material Design guidelines.
 * **Error Handling:** Graceful error messages when offline or API is unreachable.
 
-### 🛠 Tech Stack
+### Tech Stack
 * **Framework:** Flutter
 * **Language:** Dart
 * **Networking:** `http` / `dio` package
 
-### 🚀 Getting Started
+### Getting Started
 
 1.  **Clone the repository:**
     ```bash
